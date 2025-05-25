@@ -1,6 +1,6 @@
-import 'package:firestore_demo/file_list_widget.dart';
-import 'package:firestore_demo/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/storage_service.dart';
+import 'file_list_widget.dart';
 
 class UploadScreen extends StatelessWidget {
   UploadScreen({super.key});

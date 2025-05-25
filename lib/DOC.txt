@@ -1,0 +1,57 @@
+Firebase Firestore File Upload & Download Management:
+1. We can store file info in DB but we can't store direct file.It's not recommended.
+2. FireStore rules->
+Firebase Security Rules are access control rules that define
+who can read, write, or update data in your Firebase services
+(like Firestore, Realtime Database, or Storage).
+3. Index Rule->
+In Cloud Firestore, an index helps Firebase search, sort, and filter
+documents quickly — especially when you perform complex queries
+(like combining .where() with .orderBy() or multiple .where() conditions).
+4. Format of rules->
+ {
+    "rules":{
+    "foo":{//foo-> Any collection/users/files
+    ".read":true,
+    ".write":false
+    }
+    }
+    }
+     foo/bar/baz->if there is a nested users. So we don't need to write rules for all
+     of these. Just write for foo then it will be applied no others. This is called
+     cascading effect.
+5. Now we also give access to specific user->
+{
+    "rules":{
+    "users":{//Users collection
+    "$uid":{//1 specific user id
+    write: "$uid"== auth.uid//only those user can write if the $uid is authenticate id.
+    }
+    }
+    }
+    }
+6. Now lets see validation->
+Validation rules are conditions used to check the correctness of input data
+before accepting or processing it. They help ensure the data is:
+->Valid (correct type/format)
+->Complete (required fields filled)
+->Safe (no dangerous or unexpected content)
+Common Validation Rules (General):
+| Rule        | Meaning                              | Example                           |
+| ----------- | ------------------------------------ | --------------------------------- |
+| `required`  | Must not be empty                    | `"Username is required"`          |
+| `minLength` | Must be at least X characters        | Password must be at least 6 chars |
+| `maxLength` | Must be less than X characters       | Name max 50 chars                 |
+| `pattern`   | Must match a specific format (RegEx) | Email format, phone number        |
+| `isEmail`   | Must be a valid email                | `abc@gmail.com`                   |
+| `isNumeric` | Must contain only numbers            | `12345`                           |
+| `match`     | Must match another value             | Confirm password = password       |
+
+ {
+    "rules":{
+    "foo":{
+    ".validate":"newData .val().length<100"
+    }
+    }
+    }
+7.

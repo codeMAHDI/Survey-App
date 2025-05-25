@@ -56,5 +56,4 @@ Common Validation Rules (General):
     }
     }
 7.
-=======
->>>>>>> origin/master
+

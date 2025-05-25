@@ -55,5 +55,56 @@ Common Validation Rules (General):
     }
     }
     }
-7.
+7. We'll upload a file from our app in firebase storage. Also download the file.
+And we'll download the file using download url. That's why we'll use this
+package(firebase_storage:^12.4.4). And for file we'll use image picker package(image_picker:^1.1.2)
+Also when we upload a file we get a download url. We'll save that on firestore.
+And at the same time using that download url we'll download.
+That's why we'll use this package(url_launcher: ^6.3.1)
+8. Now lets create dart file under lib-> storage_service.dart
+The main work of this file is to upload files and then get the stream.
+
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+
+class StorageService{
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final ImagePicker _picker = ImagePicker();//To pick the image
+
+  /// Upload Image & Save Metadata in Firestore
+  Future<void> uploadFile() async{
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);//First we want to upload so that's why we need to pick the file.
+    if(pickedFile==null) return;
+
+    File file = File(pickedFile.path);// pickedFile is a Xfile object . So here we are converting this object to file from its path.
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();//This is a common trick to generate a unique filename or ID
+    Reference _storageRef = _storage.ref().child('uploads/$fileName.jpg');//Same as db we took a Reference also here we've to take the Reference(Tells Firebase Storage exactly where to store the file) of storage.
+    try{
+      UploadTask uploadTask = _storageRef.putFile(file);//For upload
+      TaskSnapshot snapshot = await uploadTask;//Then we need snapshot(Update)
+      String downloadUrl = await snapshot.ref.getDownloadURL();//From snapshot we can get image download url
+
+      //Save Metadata in Firestore
+      await _db.collection('files').add({
+        "fileName": fileName,
+        "fileUrl": downloadUrl,
+        "uploadedAt": FieldValue.serverTimestamp(),
+      });
+
+    }catch(e){
+      print("Upload Error: $e");
+    }
+  }
+
+  /// Get Files Stream(A stream is a way to receive data over time — like a data pipe. It delivers a sequence of asynchronous events (data, errors, or done) that you can listen to and react to in your app.)
+  Stream<QuerySnapshot> getFiles() {//This function returns a real-time stream of documents from the files collection in Firebase Firestore, ordered by the uploadedAt field in descending order (i.e., newest first).
+    return _db.collection('files').orderBy('uploadedAt', descending: true).snapshots();
+  }
+}
+9. Now lets make
+
+
 

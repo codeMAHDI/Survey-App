@@ -1,4 +1,5 @@
 Firebase Firestore File Upload & Download Management:
+<<<<<<< HEAD
 1. We can store file info in DB but we can't store direct file.It's not recommended.
 2. FireStore rules->
 Firebase Security Rules are access control rules that define
@@ -55,3 +56,5 @@ Common Validation Rules (General):
     }
     }
 7.
+=======
+>>>>>>> origin/master

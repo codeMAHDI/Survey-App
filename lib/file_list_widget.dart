@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class FileListWidget extends StatelessWidget {
   const FileListWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     final StorageService _storageService = StorageService();

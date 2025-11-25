@@ -7,7 +7,6 @@ class FileListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final StorageService _storageService = StorageService();
-
     return StreamBuilder<QuerySnapshot>(
       stream: _storageService.getFiles(),
       builder: (context, snapshot) {

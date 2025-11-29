@@ -18,7 +18,6 @@ documents quickly — especially when you perform complex queries
     }
     }
     }
-
      foo/bar/baz->if there is a nested users. So we don't need to write rules for all
      of these. Just write for foo then it will be applied no others. This is called
      cascading effect.

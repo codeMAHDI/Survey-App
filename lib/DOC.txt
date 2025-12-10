@@ -48,7 +48,6 @@ Common Validation Rules (General):
 | `isNumeric` | Must contain only numbers            | `12345`                           |
 | `match`     | Must match another value             | Confirm password = password       |
 
-
  {
     "rules":{
     "foo":{

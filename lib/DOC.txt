@@ -9,6 +9,7 @@ who can read, write, or update data in your Firebase services
 In Cloud Firestore, an index helps Firebase search, sort, and filter
 documents quickly — especially when you perform complex queries
 (like combining .where() with .orderBy() or multiple .where() conditions).
+
 4. Format of rules->
  {
     "rules":{
